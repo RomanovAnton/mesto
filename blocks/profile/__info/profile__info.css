@@ -4,14 +4,12 @@
   grid-template-areas: "profile__name profile__edit-Button"
                        "profile__job .";
   row-gap: 16px;
-  row-gap: 16px;
   column-gap: 18px;
   align-items: end;
   margin-left: 30px;
-  
 }
 
-@media screen and (max-width: 425px){
+@media screen and (max-width: 425px) {
   .profile__info {
     grid-template-columns: auto 18px;
     justify-items: center;
