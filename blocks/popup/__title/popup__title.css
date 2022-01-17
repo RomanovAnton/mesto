@@ -4,10 +4,8 @@
   font-size: 24px;
   line-height: 29px;
   color: black; 
-  min-width: 358px;
-  text-align: start;
-  
-  
+  min-width: 362px;
+  text-align: start; 
 }
 
 @media screen and (max-width: 425px) {

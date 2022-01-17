@@ -5,3 +5,10 @@
   justify-content: start;
   align-items: center;
 }
+
+@media screen and (max-width: 425px){
+  .footer {
+    margin: auto;
+    min-width: 282px;
+  } 
+}

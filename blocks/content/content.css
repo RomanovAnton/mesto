@@ -5,6 +5,8 @@
 
 @media screen and (max-width: 425px){
   .content {
-    margin: 0; 
+    display: flex;
+    flex-direction: column;
+    margin: auto; 
   } 
 }

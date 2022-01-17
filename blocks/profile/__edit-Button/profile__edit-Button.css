@@ -1,16 +1,24 @@
 .profile__edit-Button {
+  grid-area: profile__edit-Button;
   width: 24px;
   height: 24px;
-  border: none;
-  margin: 0;
-  padding: 0;
+  background: black;
   cursor: pointer;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  border: 1px solid white;
+  transition: .3s;
 }
+
+.profile__edit-Button:hover {
+  opacity: 0.6;
+}
+
 
 @media screen and (max-width: 425px) {
   .profile__edit-Button {
-    position: absolute;
-    top: 8px;
-    left: 245px;
+    width: 18px;
+    height: 18px;
   }
-} 
+}

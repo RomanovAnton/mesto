@@ -1,4 +1,4 @@
-.popup__user-name {
+.popup__profile-job {
   display: flex;
   justify-content: start;
   align-items: flex-start;
@@ -11,4 +11,12 @@
   border-left: none;
   border-right: none;
   border-bottom: 1px solid rgb(0, 0, 0, 0.2);
+  margin-top: 30px; 
+}
+
+@media screen and (max-width: 425px){
+  .popup__profile-job {
+    max-width: 238px;
+    min-height: 14px;
+  } 
 }
