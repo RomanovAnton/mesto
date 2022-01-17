@@ -1,0 +1,14 @@
+.popup__user-name {
+  display: flex;
+  justify-content: start;
+  align-items: flex-start;
+  min-width: 358px;
+  min-height: 27px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid rgb(0, 0, 0, 0.2);
+}

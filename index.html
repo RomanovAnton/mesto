@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mesto</title>
+  <link rel="stylesheet" href="./page/index.css">
+</head>
+
+
+<body class="page">
+  <div class="content">
+    <header class="header">
+      <img class="header__logo" src="./images/logo.svg" alt="лого место">
+    </header>
+    <main>
+
+      <section class="profile">
+        <img class="profile__avatar" src="./images/Avatar.jpg" alt="аватар">
+        <div class="profile__info">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <button class="profile__edit-Button">
+            <img src="./images/Edit button.svg" alt="кнопка редактирования">
+          </button>
+          <p class="profile__job">Исследователь океана</p>
+        </div>
+
+
+        <button class="profile__add-Button">
+          <img class="profile__add-Button-image" src="./images/Plus.svg" alt="плюс">
+        </button>
+
+
+      </section>
+
+      <section class="cards">
+
+        <div class="cards__item">
+          <img class="cards__image" src="./images/Karachaevsk.jpg" alt="Карачаевск">
+          <div class="cards__caption">
+            <h2 class="cards__title">Карачаевск</h2>
+            <a class="cards__like-disabled" href="#"><img src="./images/like_disabled.svg"
+                alt="кнопка лайк неактивный"></a>
+          </div>
+        </div>
+
+        <div class="cards__item">
+          <img class="cards__image" src="./images/Elbrus.jpg" alt="Эльбрус">
+          <div class="cards__caption">
+            <h2 class="cards__title">Гора Эльбрус</h2>
+            <a class="cards__like-disabled" href="#"><img src="./images/like_disabled.svg"
+                alt="кнопка лайк неактивный"></a>
+          </div>
+        </div>
+
+        <div class="cards__item">
+          <img class="cards__image" src="./images/Dombay.jpg" alt="Домбай">
+          <div class="cards__caption">
+            <h2 class="cards__title">Домбай</h2>
+            <a class="cards__like-disabled" href="#"><img src="./images/like_disabled.svg"
+                alt="кнопка лайк неактивный"></a>
+          </div>
+        </div>
+
+        <div class="cards__item">
+          <img class="cards__image" src="./images/Elbrus.jpg" alt="Эльбрус">
+          <div class="cards__caption">
+            <h2 class="cards__title">Гора Эльбрус</h2>
+            <a class="cards__like-disabled" href="#"><img src="./images/like_disabled.svg"
+                alt="кнопка лайк неактивный"></a>
+          </div>
+        </div>
+
+        <div class="cards__item">
+          <img class="cards__image" src="./images/Dombay.jpg" alt="Домбай">
+          <div class="cards__caption">
+            <h2 class="cards__title">Домбай</h2>
+            <a class="cards__like-disabled" href="#"><img src="./images/like_disabled.svg"
+                alt="кнопка лайк неактивный"></a>
+          </div>
+        </div>
+
+        <div class="cards__item">
+          <img class="cards__image" src="./images/Karachaevsk.jpg" alt="Карачаевск">
+          <div class="cards__caption">
+            <h2 class="cards__title">Карачаево-Черкессия</h2>
+            <a class="cards__like-disabled" href="#"><img src="./images/like_disabled.svg"
+                alt="кнопка лайк неактивный"></a>
+          </div>
+        </div>
+
+
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">© 2020 Mesto Russia</p>
+    </footer>
+
+    <div class="popup">
+      <div class="popup__container">
+        <div class="popup__title">Редактировать профиль</div>
+        <form class="popup__form">
+          <input type="text" class="popup__user-name">
+          <input type="text" class="popup__user-job">
+          <input type="submit" class="popup__button-save">Сохранить</input>
+        </form>
+        <button class="popup__button-close"><img src="./images/Close Icon_big.svg" alt="кнопка закрыть"></button>
+      </div>
+    </div>
+
+  </div>
+  <script src="./index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,228 @@
+.page {
+  background-color: black;
+  font-family: 'Inter', 'Arial', sans-serif;
+  color: #FFFFFF;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.content {
+  max-width: 1280px;
+  margin: 0 15.625% 0; 
+}
+
+.header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: start;
+  /* max-width: 880px; */
+  min-height: 74px;
+  padding-top: 40px;
+  border-bottom: 1px solid rgb(84, 84, 84, 0.7);
+}
+
+.header__logo {
+  width: 142px;
+  height: 33px;
+}
+
+.profile {
+  padding: 40px 0 50px;
+  display: flex;
+  align-items: center;
+}
+
+.profile__avatar {
+  margin: 0;
+  padding: 0;
+  border-radius: 100%;
+  max-width: 120px;
+  max-height: 120px;
+}
+
+.profile__info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  max-width: 336px;
+  min-height: 73px;
+  margin-left: 30px;
+}
+
+.profile__name {
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 48px;
+  margin: 0;
+  padding-right: 18px;
+}
+
+.profile__job {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  margin: 0;
+  padding-top: 16px;
+}
+
+.profile__edit-Button {
+  width: 24px;
+  height: 24px;
+  border: none;
+  margin: 0;
+  padding: 0;
+} 
+
+.profile__add-Button {
+  width: 150px;
+  height: 50px;
+  border: none;
+  margin: 0 0 0 auto;
+  padding: 0;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+  gap: 17px;
+  margin: auto;
+  max-width: 880px; 
+ }
+
+.cards__image {
+  width: 100%;
+}
+
+.cards__item {
+  border-radius: 10px;
+  background: #FFFFFF;
+  color: black;
+  overflow: hidden;
+}
+
+.cards__caption {
+  display: flex;
+  justify-content: space-between;
+  margin: 6.92% 5.31% 8.57% 7.44%;
+}
+
+.cards__title {
+  display: inline-block;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.footer {
+  margin: 0;
+  padding: 66px 0 60px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.footer__copyright {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  margin: 0;
+  color: #545454;
+}
+
+.popup {
+  display: none; 
+  /* display: flex;  */
+  position: fixed;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: #000000;
+}
+
+.popup_opened {
+  display: flex;
+}
+
+.popup__container {
+  position: relative;
+  width: 430px;
+  background: #FFFFFF;
+  color: #000000;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 36px;
+}
+
+.popup__title {
+  margin: 34px 0 54px;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px; 
+}
+
+.popup__user-name {
+  display: flex;
+  justify-content: start;
+  align-items: flex-start;
+  max-width: 358px;
+  min-height: 27px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  border-bottom: 1px solid rgb(0, 0, 0, 0.2);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.popup__user-job {
+  display: flex;
+  justify-content: start;
+  align-items: flex-start;
+  max-width: 358px;
+  min-height: 27px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  border-bottom: 1px solid rgb(0, 0, 0, 0.2);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-top: 30px; 
+}
+
+.popup__button-save {
+  width: 358px;
+  min-height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000000;
+  color: #FFFFFF;
+  margin: 48px 0 37px;
+  border: none;
+  border-radius: 2px;
+} 
+
+.popup__button-close {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  right: -35px;
+  top: -35px;
+  cursor: pointer;
+}
+
+/* 
+выровнять крестик на попапе
+распределить правильно H1, H2.... */
