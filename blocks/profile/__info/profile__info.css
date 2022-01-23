@@ -7,15 +7,25 @@
   column-gap: 18px;
   align-items: end;
   margin-left: 30px;
+  max-width: 430px;
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 1023px) {
   .profile__info {
     grid-template-columns: auto 18px;
-    justify-items: center;
+    justify-content: flex-start;
     column-gap: 10px;
     margin-left: 14px;
-    margin: 26px 0 36px;
+    margin: 26px 0 33px;
     padding-left: 19px;
+    row-gap: 6px; 
+    max-width: 250px;
+  } 
+}
+
+@media screen and (max-width: 768px) {
+  .profile__info {
+    max-width: 250px;
+    text-align: center;
   } 
 }

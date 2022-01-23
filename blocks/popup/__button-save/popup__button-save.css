@@ -10,6 +10,13 @@
   border: none;
   border-radius: 2px;
   cursor: pointer;
+  font-size: 18px;
+  line-height: 22px;
+  transition: .3s;
+}
+
+.popup__button-save:hover {
+  opacity: .8;
 }
 
 @media screen and (max-width: 425px){
@@ -17,5 +24,7 @@
     max-width: 238px;
     min-height: 46px;
     margin: 45px 0 25px;
+    font-size: 14px;
+    line-height: 17px;
   } 
 }
