@@ -2,11 +2,14 @@
   grid-area: profile__edit-Button;
   width: 24px;
   height: 24px;
-  background: black;
+  background-image: url(../../../images/Edit_Button.svg);
+  object-fit: contain;
+  background-repeat: no-repeat;
+  background-color: black;
+  background-position: center;
+  margin: 0;
+  padding: 0;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border: 1px solid white;
   transition: .3s;
 }
