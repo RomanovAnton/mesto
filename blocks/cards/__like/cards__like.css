@@ -1,5 +1,5 @@
 .cards__like {
-  width: 22px;
+  min-width: 22px;
   height: 19px;
   border: none;
   padding: 0;
@@ -7,6 +7,9 @@
   cursor: pointer;
   background-color: #FFFFFF;
   transition: .3s;
+  background-image: url(../../../images/like_disabled.svg);
+  background-size: 100%;
+  background-position: center;
 }
 
 .cards__like:hover {
