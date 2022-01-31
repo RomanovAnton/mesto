@@ -19,7 +19,7 @@
   margin-top: 0px;
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 560px) {
   .popup__input {
     min-width: 238px;
   } 
