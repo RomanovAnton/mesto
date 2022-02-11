@@ -112,5 +112,3 @@ addform.addEventListener('submit', addFormSubmitHandler);
 initialCards.forEach((data) => {
   addCard(cardsList, createCard(data.name, data.link))
 });
-
-
