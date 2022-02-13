@@ -4,10 +4,13 @@
   color: #FF0000;
   display: flex;
   max-width: 358px;
-  opacity: 1;
-  height: 20px;
+  height: 30px;
 }
 
- /* position: absolute;
-  top: calc(100% + 6px);
-  left: 0;  */
+@media screen and (max-width: 560px){
+  .popup__input-error {
+    max-width: 238px;
+    font-size: 10px;
+    line-height: 12px;
+  } 
+}
