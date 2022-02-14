@@ -1,9 +1,6 @@
 
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
-const popupEditButtonClose = document.querySelector('.popup__edit-button-close');
-const popupAddButtonClose = document.querySelector('.popup__add-button-close');
-const popupImageButtonClose = document.querySelector('.popup__image-button-close');
 const editPopup = document.querySelector('.popup_edit-profile');
 const addPopup = document.querySelector('.popup_add-card');
 const imagePopup = document.querySelector('.popup_image');
@@ -17,8 +14,10 @@ const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 const cardsList = document.querySelector('.cards');
 const cardTemplate = document.querySelector('.cards__template').content;
-const cardTitle = document.querySelector('.cards__title')
 const popups = Array.from(document.querySelectorAll('.popup'));
+const linkImage = document.querySelector('.popup__card-image');
+const nameImage = document.querySelector('.popup__caption');
+
 
 function openPopup(popup) {
   popup.classList.add('popup_opened')
@@ -30,31 +29,40 @@ function closePopup(popup) {
   document.removeEventListener('keydown', closePopupEsc)
 }
 
-function defaultProfileData() {
-  popupEditNameInput.value = profileName.textContent;
-  popupEditJobInput.value = profileJob.textContent;
+function closePopupEsc(evt) {
+  if (evt.key === 'Escape') {
+    const popupCloseEscape = document.querySelector('.popup_opened')
+    closePopup(popupCloseEscape)
+  }
 }
 
-function editFormSubmitHandler(evt) {
+function addProfileData() {
+  popupEditNameInput.value = profileName.textContent;
+  popupEditJobInput.value = profileJob.textContent;
+  checkButtonValidity(editform, config) //метод checkValidity() не видит предзаполненные поля, как следствие недоступная кнопка "сохранить" при первом открытии edit попапа. Для корректного отображения кнопки здесь добавлена функция для ее проверки
+}
+
+function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = popupEditNameInput.value;
   profileJob.textContent = popupEditJobInput.value;
   closePopup(editPopup);
 }
 
-function addFormSubmitHandler(evt) {
+function handleAddFormSubmit(evt) {
   evt.preventDefault();
   addCard(cardsList, createCard(popupAddCardName.value, popupAddCardLink.value));
+  addform.reset();
   closePopup(addPopup);
 }
+
 
 function addCard(container, element) {
   container.prepend(element)
 }
 
 function addInfoImage(name, link) {
-  const linkImage = document.querySelector('.popup__card-image');
-  const nameImage = document.querySelector('.popup__caption');
+
   nameImage.textContent = name;
   nameImage.alt = name;
   linkImage.src = link;
@@ -70,7 +78,7 @@ function createCard(name, link) {
   cardImage.src = link;
   cardImage.alt = name;
   cardBasket.addEventListener('click', deleteCard);
-  cardLike.addEventListener('click', activateLike);
+  cardLike.addEventListener('click', toggleLike);
   cardImage.addEventListener('click', () => {
     addInfoImage(name, link),
       openPopup(imagePopup)
@@ -78,7 +86,7 @@ function createCard(name, link) {
   return card;
 }
 
-function activateLike(event) {
+function toggleLike(event) {
   event.target.classList.toggle('cards__like_active');
 }
 
@@ -86,35 +94,19 @@ function deleteCard(event) {
   event.target.closest('.cards__item').remove();
 }
 
-function closeAllPopup() {
-  closePopup(addPopup)
-  closePopup(editPopup)
-  closePopup(imagePopup)
-}
 
 editButton.addEventListener('click', () => {
   openPopup(editPopup),
-    defaultProfileData()
+    addProfileData()
 });
 
 addButton.addEventListener('click', () => {
   openPopup(addPopup)
 });
 
-popupEditButtonClose.addEventListener('click', () => {
-  closePopup(editPopup)
-})
 
-popupAddButtonClose.addEventListener('click', () => {
-  closePopup(addPopup)
-})
-
-popupImageButtonClose.addEventListener('click', () => {
-  closePopup(imagePopup)
-})
-
-editform.addEventListener('submit', editFormSubmitHandler);
-addform.addEventListener('submit', addFormSubmitHandler);
+editform.addEventListener('submit', handleProfileFormSubmit);
+addform.addEventListener('submit', handleAddFormSubmit);
 
 
 initialCards.forEach((data) => {
@@ -123,17 +115,18 @@ initialCards.forEach((data) => {
 
 
 popups.forEach((popup) => {
-  popup.addEventListener('click', (evt) => {
-    if (evt.target == evt.currentTarget) {
-      const popupCloseEscape = document.querySelector('.popup_opened')
-      closeAllPopup(popupCloseEscape)
+  popup.addEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains('popup__icon')) {
+      closePopup(popup)
+    }
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(popup)
     }
   })
 })
 
-function closePopupEsc(evt) {
-  const popupCloseEscape = document.querySelector('.popup_opened')
-  if (evt.key === 'Escape') {
-    closePopup(popupCloseEscape)
-  }
-}
+
+
+
+
+
