@@ -39,7 +39,6 @@ function closePopupEsc(evt) {
 function addProfileData() {
   popupEditNameInput.value = profileName.textContent;
   popupEditJobInput.value = profileJob.textContent;
-  checkButtonValidity(editform, config) //метод checkValidity() не видит предзаполненные поля, как следствие недоступная кнопка "сохранить" при первом открытии edit попапа. Для корректного отображения кнопки здесь добавлена функция для ее проверки
 }
 
 function handleProfileFormSubmit(evt) {

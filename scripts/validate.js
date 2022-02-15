@@ -27,29 +27,29 @@ function checkImputValidity(form, input, inputErrorClass) {
     setInputInvalid(input, errorElement, inputErrorClass)
   }
 }
-function checkButtonValidity(form, { submitButtonSelector, inactiveButtonClass }) {
-  const button = form.querySelector(submitButtonSelector)
+function checkButtonValidity(form, button, inactiveButtonClass) {
   if (form.checkValidity()) {
     enableButton(button, inactiveButtonClass)
   } else {
     disableButton(button, inactiveButtonClass)
   }
-  form.addEventListener('reset', () => {
-    disableButton(button, inactiveButtonClass)
-  })
 }
 
 
 function setEventListenerInputs(form, { inputSelector, submitButtonSelector, inputErrorClass, inactiveButtonClass }) {
 
   const inputList = Array.from(form.querySelectorAll(inputSelector))
+  const button = form.querySelector(submitButtonSelector)
 
-  checkButtonValidity(form, { submitButtonSelector, inactiveButtonClass })
+  checkButtonValidity(form, button, inactiveButtonClass)
+  form.addEventListener('reset', () => {
+    disableButton(button, inactiveButtonClass)
+  })
 
   inputList.forEach((input) => {
     input.addEventListener('input', () => {
       checkImputValidity(form, input, inputErrorClass)
-      checkButtonValidity(form, { submitButtonSelector, inactiveButtonClass })
+      checkButtonValidity(form, button, inactiveButtonClass)
     })
   })
 }
