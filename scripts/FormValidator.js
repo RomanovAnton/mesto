@@ -5,7 +5,9 @@ class FormValidator {
     this._inputErrorClass = config.inputErrorClass
     this._inputSelector = config.inputSelector
     this._submitButtonSelector = config.submitButtonSelector
-    this._form = document.querySelector(form)
+    this._form = form
+    this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
+    this._button = this._form.querySelector(this._submitButtonSelector);
   }
 
   enableValidation() {
@@ -13,8 +15,6 @@ class FormValidator {
   }
 
   _setEventListenerInputs() {
-    this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
-    this._button = this._form.querySelector(this._submitButtonSelector);
     this._checkButtonValidity()
     this._form.addEventListener('reset', () => {
       this._disableButton()

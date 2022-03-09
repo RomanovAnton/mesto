@@ -1,5 +1,6 @@
 
-import { initialCards, Card } from './Card.js'
+import { initialCards } from './initial-cards.js'
+import { Card } from './Card.js'
 import { FormValidator, config, } from './FormValidator.js'
 
 const editButton = document.querySelector('.profile__edit-button');
@@ -43,7 +44,7 @@ function addCard(data, container, cardSelector) {
 
 function showImage(name, link) {
   popupCaption.textContent = name;
-  popupCaption.alt = name;
+  popupCardImage.alt = name;
   popupCardImage.src = link;
   openPopup(imagePopup)
 }
@@ -116,13 +117,8 @@ popups.forEach((popup) => {
   })
 })
 
-
-
-
-
-forms.forEach((form) => {
-  const selector = form.getAttribute('name')
-  new FormValidator(config, `.${selector}`).enableValidation()
-})
-
+const editProfileValidator = new FormValidator(config, editform)
+const addCardValidator = new FormValidator(config, addform)
+editProfileValidator.enableValidation()
+addCardValidator.enableValidation()
 renderElements()
