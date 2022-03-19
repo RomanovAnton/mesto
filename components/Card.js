@@ -1,10 +1,12 @@
 
+
 export class Card {
-  constructor(data, cardSelector, showImage) {
-    this._cardSelector = cardSelector;
+  constructor({data, templateSelector, handleCardClick}) {
+    this._cardSelector = templateSelector;
     this._title = data.name;
     this._image = data.link;
-    this._showImage = showImage;
+    this.handleCardClick = handleCardClick;
+
   }
 
   _getTemplate() {
@@ -28,7 +30,7 @@ export class Card {
   _setEventListeners() {
     this._element.querySelector('.cards__like').addEventListener('click', this._toggleLike)
     this._element.querySelector('.cards__basket').addEventListener('click', () => { this._deleteCard() })
-    this._element.querySelector('.cards__image').addEventListener('click', () => { this._showImage(this._title, this._image) })
+    this._element.querySelector('.cards__image').addEventListener('click', () => {this.handleCardClick()})
   }
 
   generateCard() {

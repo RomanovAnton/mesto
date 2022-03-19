@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
-  <link rel="stylesheet" href="./page/index.css">
+  <link rel="stylesheet" href="./styles/index.css">
 </head>
 
 <body class="page">
@@ -56,10 +56,10 @@
       <div class="popup__container">
         <h2 class="popup__title">Новое место</h2>
         <form class="popup__form popup__add-form" name="popup__add-form" novalidate>
-          <input type="text" class="popup__input popup__card-name" name="cardName" placeholder="Название" required
+          <input type="text" class="popup__input popup__card-name" name="name" placeholder="Название" required
             minlength="2" maxlength="30" id="popup__card-name">
           <span class="popup__input-error popup__card-name-error "></span>
-          <input type="url" class="popup__input popup__card-link" name="cardLink" placeholder="Ссылка на картинку"
+          <input type="url" class="popup__input popup__card-link" name="link" placeholder="Ссылка на картинку"
             required id="popup__card-link">
           <span class="popup__input-error popup__card-link-error"></span>
           <button type="submit" class="popup__button-save">Создать</button>
@@ -89,7 +89,7 @@
     </template>
 
   </div>
-  <script type="module" src="./scripts/index.js"></script>
+  <script type="module" src="./pages/index.js"></script>
 </body>
 
 </html>
