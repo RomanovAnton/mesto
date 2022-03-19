@@ -18,6 +18,7 @@ import { Section } from '../components/Section.js'
 import { Popup } from '../components/Popup.js'
 import { PopupWithImage } from '../components/PopupWithImage.js'
 import { PopupWithForm } from '../components/PopupWithForm.js'
+import { UserInfo } from '../components/UserInfo.js'
 
 import { FormValidator, config, } from '../components/FormValidator.js'
 
@@ -25,7 +26,6 @@ import { FormValidator, config, } from '../components/FormValidator.js'
 const cards = new Section({
   items: initialCards,
   renderer: (item) => {
-    console.log(item)
     const card = new Card({
       data: item,
       templateSelector: '.cards__template',
@@ -48,7 +48,10 @@ cards.renderer();
 editButton.addEventListener('click', () => {
   const edit = new Popup(editPopup)
   edit.open()
-  // addProfileData()
+  test.getUserInfo()
+  // popupEditNameInput.value = test.getUserInfo().profileName
+  // popupEditJobInput.value = test.getUserInfo().profileJob
+
   edit.setEventListeners()
 });
 
@@ -65,8 +68,9 @@ addButton.addEventListener('click', () => {
 const editForm = new PopupWithForm({
   popup: editPopup,
   handleSubmitForm: (formData) => {
-    profileName.textContent = formData.profileName
-    profileJob.textContent = formData.profileJob
+    
+    test.setUserInfo(formData)
+    
   }
 })
 
@@ -75,7 +79,6 @@ editForm.setEventListeners()
 const addForm = new PopupWithForm({
   popup: addPopup,
   handleSubmitForm: (formData) => {
-    console.log(formData)
     const newCard = new Card({
       data: formData,
       templateSelector: '.cards__template',
@@ -91,6 +94,32 @@ const addForm = new PopupWithForm({
 })
 
 addForm.setEventListeners()
+
+
+
+
+const test = new UserInfo(profileName, profileJob)
+
+
+
+
+
+// РАБОЧИЙ
+// const editForm = new PopupWithForm({
+//   popup: editPopup,
+//   handleSubmitForm: (formData) => {
+//     profileName.textContent = formData.profileName
+//     profileJob.textContent = formData.profileJob
+//   }
+// })
+
+
+
+
+
+
+
+
 
 
 // function handleProfileFormSubmit(evt) {
