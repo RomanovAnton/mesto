@@ -6,18 +6,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
-  <link rel="stylesheet" href="./styles/index.css">
+  <!-- <link rel="stylesheet" href="./styles/index.css"> -->
 </head>
 
 <body class="page">
   <div class="content">
     <header class="header">
-      <img class="header__logo" src="./images/logo.svg" alt="лого место">
+      <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="лого место">
     </header>
     <main class="main">
 
       <section class="profile">
-        <img class="profile__avatar" src="./images/Avatar.jpg" alt="аватар">
+        <img class="profile__avatar" src="<%=require('./images/Avatar.jpg')%>" alt="аватар">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <button class="profile__edit-button" type="button"></button>
@@ -47,8 +47,8 @@
           <span class="popup__input-error popup__profile-job-error"></span>
           <button type="submit" class="popup__button-save">Сохранить</button>
         </form>
-        <button class="popup__button-close" type="button"><img class="popup__icon" src="./images/Close_Icon.svg"
-            alt="кнопка закрыть"></button>
+        <button class="popup__button-close" type="button"><img class="popup__icon"
+            src="<%=require('./images/Close_Icon.svg')%>" alt="кнопка закрыть"></button>
       </div>
     </div>
 
@@ -59,21 +59,21 @@
           <input type="text" class="popup__input popup__card-name" name="name" placeholder="Название" required
             minlength="2" maxlength="30" id="popup__card-name">
           <span class="popup__input-error popup__card-name-error "></span>
-          <input type="url" class="popup__input popup__card-link" name="link" placeholder="Ссылка на картинку"
-            required id="popup__card-link">
+          <input type="url" class="popup__input popup__card-link" name="link" placeholder="Ссылка на картинку" required
+            id="popup__card-link">
           <span class="popup__input-error popup__card-link-error"></span>
           <button type="submit" class="popup__button-save">Создать</button>
         </form>
-        <button class="popup__button-close" type="button"><img class="popup__icon" src="./images/Close_Icon.svg"
-            alt="кнопка закрыть"></button>
+        <button class="popup__button-close" type="button"><img class="popup__icon"
+            src="<%=require('./images/Close_Icon.svg')%>" alt="кнопка закрыть"></button>
       </div>
     </div>
     <div class="popup popup_image">
       <div class="popup__container-image">
         <img class="popup__card-image" src="#" alt="#">
         <p class="popup__caption"></p>
-        <button class="popup__button-close" type="button"><img class="popup__icon" src="./images/Close_Icon.svg"
-            alt="кнопка закрыть"></button>
+        <button class="popup__button-close" type="button"><img class="popup__icon"
+            src="<%=require('./images/Close_Icon.svg')%>" alt="кнопка закрыть"></button>
       </div>
     </div>
 
@@ -89,7 +89,7 @@
     </template>
 
   </div>
-  <script type="module" src="./pages/index.js"></script>
+  <!-- <script type="module" src="./index.js"></script> -->
 </body>
 
 </html>

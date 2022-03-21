@@ -10,17 +10,16 @@ import {
   profileJob,
   editform,
   addform
-} from '../utils/constants.js'
+} from '../src/utils/constants.js'
 
-import { Card } from '../components/Card.js'
-import { Section } from '../components/Section.js'
-import { Popup } from '../components/Popup.js'
-import { PopupWithImage } from '../components/PopupWithImage.js'
-import { PopupWithForm } from '../components/PopupWithForm.js'
-import { UserInfo } from '../components/UserInfo.js'
-
-import { FormValidator, config, } from '../components/FormValidator.js'
-
+import { Card } from '../src/components/Card.js'
+import { Section } from '../src/components/Section.js'
+import { Popup } from '../src/components/Popup.js'
+import { PopupWithImage } from '../src/components/PopupWithImage.js'
+import { PopupWithForm } from '../src/components/PopupWithForm.js'
+import { UserInfo } from '../src/components/UserInfo.js'
+import { FormValidator, config } from '../src/components/FormValidator.js'
+import './styles/index.css'
 
 const cards = new Section({
   items: initialCards,
@@ -44,16 +43,16 @@ cards.renderer();
 
 
 editButton.addEventListener('click', () => {
-  const edit = new Popup(editPopup)
-  edit.open()
+  const popupEdit = new Popup(editPopup)
+  popupEdit.open()
   userInfo.getUserInfo()
-  edit.setEventListeners()
+  popupEdit.setEventListeners()
 });
 
 addButton.addEventListener('click', () => {
-  const add = new Popup(addPopup)
-  add.open()
-  add.setEventListeners()
+  const popupAdd = new Popup(addPopup)
+  popupAdd.open()
+  popupAdd.setEventListeners()
 });
 
 const popupEditForm = new PopupWithForm({
