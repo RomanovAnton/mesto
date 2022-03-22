@@ -1,8 +1,3 @@
-import {
-  popupEditNameInput,
-  popupEditJobInput,
-} from '../utils/constants.js'
-
 export class UserInfo {
   constructor(profileName, profileJob) {
     this._profileName = profileName;
@@ -10,15 +5,16 @@ export class UserInfo {
   }
 
   getUserInfo() {
-    popupEditNameInput.value = this._profileName.textContent
-    popupEditJobInput.value = this._profileJob.textContent
+    return {
+      name: this._profileName.textContent,
+      job: this._profileJob.textContent
+    }
   }
 
   setUserInfo(data) {
     this._profileName.textContent = data.profileName
     this._profileJob.textContent = data.profileJob
   }
-
 }
 
 

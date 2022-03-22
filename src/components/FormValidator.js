@@ -78,3 +78,6 @@ const config = {
 
 
 export { FormValidator, config }
+
+
+

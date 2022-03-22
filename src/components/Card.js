@@ -1,12 +1,14 @@
-
-
 export class Card {
-  constructor({data, templateSelector, handleCardClick}) {
+  constructor({ data, templateSelector, handleCardClick }) {
     this._cardSelector = templateSelector;
     this._title = data.name;
     this._image = data.link;
     this.handleCardClick = handleCardClick;
-
+    this._element = this._getTemplate();
+    this._cardImage = this._element.querySelector('.cards__image')
+    this._cardTitile = this._element.querySelector('.cards__title')
+    this._cardLike = this._element.querySelector('.cards__like')
+    this._cardBasket = this._element.querySelector('.cards__basket')
   }
 
   _getTemplate() {
@@ -27,18 +29,17 @@ export class Card {
     this._element = null;
   }
 
-  _setEventListeners() {
-    this._element.querySelector('.cards__like').addEventListener('click', this._toggleLike)
-    this._element.querySelector('.cards__basket').addEventListener('click', () => { this._deleteCard() })
-    this._element.querySelector('.cards__image').addEventListener('click', () => {this.handleCardClick()})
-  }
-
   generateCard() {
-    this._element = this._getTemplate();
-    this._element.querySelector('.cards__image').src = this._image;
-    this._element.querySelector('.cards__image').alt = this._title;
-    this._element.querySelector('.cards__title').textContent = this._title;
+    this._cardImage.src = this._image;
+    this._cardImage.alt = this._title;
+    this._cardTitile.textContent = this._title;
     this._setEventListeners()
     return this._element;
+  }
+
+  _setEventListeners() {
+    this._cardLike.addEventListener('click', this._toggleLike)
+    this._cardBasket.addEventListener('click', () => { this._deleteCard() })
+    this._cardImage.addEventListener('click', () => { this.handleCardClick() })
   }
 }
