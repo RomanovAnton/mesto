@@ -70,7 +70,6 @@ cards.renderer();
 editButton.addEventListener('click', () => {
   const { name, job } = userInfo.getUserInfo()
   popupEditForm.open()
-  userInfo.getUserInfo()
   popupEditNameInput.value = name
   popupEditJobInput.value = job
 });
