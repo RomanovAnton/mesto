@@ -9,7 +9,8 @@ import {
   profileName,
   profileJob,
   popupEditNameInput,
-  popupEditJobInput
+  popupEditJobInput,
+  popupDeleteConfirm
 } from '../utils/constants.js'
 
 import { Card } from '../components/Card.js'
@@ -18,6 +19,7 @@ import { PopupWithImage } from '../components/PopupWithImage.js'
 import { PopupWithForm } from '../components/PopupWithForm.js'
 import { UserInfo } from '../components/UserInfo.js'
 import { FormValidator, config } from '../components/FormValidator.js'
+import { api } from '../components/Api.js'
 import './index.css'
 
 const popopImageData = new PopupWithImage(imagePopup)
@@ -26,23 +28,36 @@ const popupEditForm = new PopupWithForm({
   popup: editPopup,
   handleSubmitForm: (formData) => {
     userInfo.setUserInfo(formData)
+    console.log(formData)
+    api.editProfile({
+      name: formData.profileName,
+      job: formData.profileJob
+    })
   }
 })
 
 const popupAddForm = new PopupWithForm({
   popup: addPopup,
   handleSubmitForm: (formData) => {
-    createCard(formData)
     cards.addItem(createCard(formData));
+    api.addCard(formData)
   }
 })
+
+const popupDelConfirm = new PopupWithForm({
+  popup: popupDeleteConfirm,
+  handleSubmit: () => {
+    console.log(formData)
+  }
+})
+
 
 const userInfo = new UserInfo(profileName, profileJob)
 
 popopImageData.setEventListeners()
 popupEditForm.setEventListeners()
 popupAddForm.setEventListeners()
-
+popupDelConfirm.setEventListeners()
 
 
 function createCard(item) {
@@ -51,6 +66,9 @@ function createCard(item) {
     templateSelector: '.cards__template',
     handleCardClick: () => {
       popopImageData.open(item)
+    },
+    handleDeleteCard: () => {
+      popupDelConfirm.open()
     }
   });
   const cardElement = card.generateCard()
@@ -58,7 +76,7 @@ function createCard(item) {
 }
 
 const cards = new Section({
-  items: initialCards,
+  items: [],
   renderer: (item) => {
     cards.addItem(createCard(item));
   }
@@ -91,3 +109,21 @@ const enableValidation = (config) => {
 };
 
 enableValidation(config);
+formValidators['deleteConfirmForm'].resetValidation();
+
+
+
+api.getProfile()
+  .then((res) => {
+    userInfo.setUserInfo({
+      profileName: res.name,
+      profileJob: res.about
+    })
+  })
+
+api.getCards()
+  .then((data) => {
+    data.forEach((item) => {
+      cards.addItem(createCard(item))
+    })
+  })

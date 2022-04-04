@@ -1,0 +1,7 @@
+.profile__icon_size_big {
+  width: 26px;
+  height: 26px;
+  z-index: 1;
+  position: absolute;
+  display: none;
+}

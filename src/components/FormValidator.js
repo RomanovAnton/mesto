@@ -19,7 +19,6 @@ class FormValidator {
     this._form.addEventListener('reset', () => {
       this._disableButton()
     })
-
     this._inputList.forEach((input) => {
       input.addEventListener('input', () => {
         this._checkImputValidity(input)
@@ -64,6 +63,15 @@ class FormValidator {
   _disableButton() {
     this._button.setAttribute('disabled', '')
     this._button.classList.add(this._inactiveButtonClass)
+  }
+
+
+  
+  resetValidation() {
+    this._inputList.forEach((input) => {
+        this._checkImputValidity(input)
+        this._checkButtonValidity()
+    })
   }
 }
 
