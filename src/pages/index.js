@@ -117,6 +117,15 @@ function createCard(item) {
       })
 
     },
+    hundleLikeClick: (cardId) => {
+      if (card.isLiked()) {
+        api.deleteLike(cardId)
+          .then((res) => card.setLikes(res.likes))
+      } else {
+        api.addLike(cardId)
+          .then((res) => card.setLikes(res.likes))
+      }
+    },
   });
   const cardElement = card.generateCard()
   return cardElement
