@@ -10,7 +10,9 @@ import {
   profileJob,
   popupEditNameInput,
   popupEditJobInput,
-  popupDeleteConfirm
+  popupDeleteConfirm,
+  editform,
+  addform
 } from '../utils/constants.js'
 
 import { Card } from '../components/Card.js'
@@ -22,13 +24,39 @@ import { FormValidator, config } from '../components/FormValidator.js'
 import { api } from '../components/Api.js'
 import './index.css'
 
+
+let userId
+
+api.getProfile()
+  .then((res) => {
+    userInfo.setUserInfo({
+      profileName: res.name,
+      profileJob: res.about,
+    })
+    userId = res._id
+  })
+
+api.getCards()
+  .then((data) => {
+    data.forEach((item) => {
+      cards.addItem(createCard({
+        name: item.name,
+        link: item.link,
+        likes: item.likes,
+        owner: item.owner,
+        cardId: item._id
+      }))
+    })
+  })
+
+
+
 const popopImageData = new PopupWithImage(imagePopup)
 
 const popupEditForm = new PopupWithForm({
   popup: editPopup,
   handleSubmitForm: (formData) => {
     userInfo.setUserInfo(formData)
-    console.log(formData)
     api.editProfile({
       name: formData.profileName,
       job: formData.profileJob
@@ -39,16 +67,26 @@ const popupEditForm = new PopupWithForm({
 const popupAddForm = new PopupWithForm({
   popup: addPopup,
   handleSubmitForm: (formData) => {
-    cards.addItem(createCard(formData));
-    api.addCard(formData)
+    api.addCard({
+      name: formData.name,
+      link: formData.link,
+    })
+      .then((res) => {
+        cards.addItem(createCard({
+          name: res.name,
+          link: res.link,
+          likes: res.likes,
+          owner: res.owner,
+          cardId: res._id
+        }
+        ));
+      })
+
   }
 })
 
 const popupDelConfirm = new PopupWithForm({
-  popup: popupDeleteConfirm,
-  handleSubmit: () => {
-    console.log(formData)
-  }
+  popup: popupDeleteConfirm
 })
 
 
@@ -64,25 +102,29 @@ function createCard(item) {
   const card = new Card({
     data: item,
     templateSelector: '.cards__template',
+    userId,
     handleCardClick: () => {
       popopImageData.open(item)
+      console.log(item)
     },
-    handleDeleteCard: () => {
+    handleDeleteCard: (cardId) => {
       popupDelConfirm.open()
-    }
+      popupDelConfirm.changeHandleSubmitForm(() => {
+        api.deleteCard(cardId)
+          .then((res) => {
+            card.deleteCard()
+          })
+      })
+
+    },
   });
   const cardElement = card.generateCard()
   return cardElement
 }
 
-const cards = new Section({
-  items: [],
-  renderer: (item) => {
-    cards.addItem(createCard(item));
-  }
-}, cardsList)
+const cards = new Section({ items: [] }, cardsList)
 
-cards.renderer();
+
 
 
 editButton.addEventListener('click', () => {
@@ -97,33 +139,27 @@ addButton.addEventListener('click', () => {
 });
 
 
-const formValidators = {}
-const enableValidation = (config) => {
-  const formList = Array.from(document.querySelectorAll(config.formSelector))
-  formList.forEach((formElement) => {
-    const validator = new FormValidator(config, formElement)
-    const formName = formElement.getAttribute('name')
-    formValidators[formName] = validator;
-    validator.enableValidation();
-  });
-};
+// const formValidators = {}
+// const enableValidation = (config) => {
+//   const formList = Array.from(document.querySelectorAll(config.formSelector))
+//   formList.forEach((formElement) => {
+//     const validator = new FormValidator(config, formElement)
+//     const formName = formElement.getAttribute('name')
+//     formValidators[formName] = validator;
+//     validator.enableValidation();
+//   });
+// };
 
-enableValidation(config);
-formValidators['deleteConfirmForm'].resetValidation();
+// enableValidation(config);
+// formValidators['deleteConfirmForm'].resetValidation();
+
+const editProfileValidator = new FormValidator(config, editform)
+const addCardValidator = new FormValidator(config, addform)
+
+editProfileValidator.enableValidation()
+addCardValidator.enableValidation()
 
 
 
-api.getProfile()
-  .then((res) => {
-    userInfo.setUserInfo({
-      profileName: res.name,
-      profileJob: res.about
-    })
-  })
 
-api.getCards()
-  .then((data) => {
-    data.forEach((item) => {
-      cards.addItem(createCard(item))
-    })
-  })
+

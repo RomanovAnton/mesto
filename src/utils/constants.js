@@ -44,3 +44,4 @@ export const popups = Array.from(document.querySelectorAll('.popup'));
 export const popupCaption = document.querySelector('.popup__caption');
 export const popupCardImage = document.querySelector('.popup__card-image');
 
+

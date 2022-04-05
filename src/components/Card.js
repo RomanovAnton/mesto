@@ -1,9 +1,12 @@
 export class Card {
-  constructor({ data, templateSelector, handleCardClick, handleDeleteCard}) {
+  constructor({ data, templateSelector, handleCardClick, handleDeleteCard, userId }) {
     this._cardSelector = templateSelector;
     this._title = data.name;
     this._image = data.link;
-    this._likes = data.likes.length;
+    this._likes = data.likes;
+    this._ownerId = data.owner._id;
+    this._cardId = data.cardId;
+    this._userId = userId;
     this.handleCardClick = handleCardClick;
     this.handleDeleteCard = handleDeleteCard;
     this._element = this._getTemplate();
@@ -25,9 +28,11 @@ export class Card {
 
   _toggleLike(event) {
     event.target.classList.toggle('cards__like_active');
+
+    console.log(this._likes)
   }
 
-  _deleteCard() {
+  deleteCard() {
     this._element.remove();
     this._element = null;
   }
@@ -36,14 +41,21 @@ export class Card {
     this._cardImage.src = this._image;
     this._cardImage.alt = this._title;
     this._cardTitile.textContent = this._title;
-    this._cardLikes.textContent = this._likes;
+
+    this._cardLikes.textContent = this._likes.length;
+    if (this._userId !== this._ownerId) {
+      this._cardBasket.style.display = 'none'
+    }
     this._setEventListeners()
     return this._element;
   }
 
   _setEventListeners() {
-    this._cardLike.addEventListener('click', this._toggleLike)
-    this._cardBasket.addEventListener('click', () => { this.handleDeleteCard()})
+    this._cardLike.addEventListener('click', (evt) => { this._toggleLike(evt) })
+    this._cardBasket.addEventListener('click', () => { this.handleDeleteCard(this._cardId) })
     this._cardImage.addEventListener('click', () => { this.handleCardClick() })
   }
+
+
+
 }
