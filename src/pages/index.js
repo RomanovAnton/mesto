@@ -59,6 +59,7 @@ const popupEditForm = new PopupWithForm({
   handleSubmitForm: (formData) => {
     userInfo.setUserInfo(formData)
     popupEditForm.changeButtonText('Сохранение...')
+    
     api.editProfile({
       name: formData.profileName,
       job: formData.profileJob,
@@ -96,7 +97,7 @@ const popupAddForm = new PopupWithForm({
 const popupChangeAvatarForm = new PopupWithForm({
   popup: popupChangeAvatar,
   handleSubmitForm: (formData) => {
-    popupChangeAvatarForm.changeButtonText('Сохранение')
+    popupChangeAvatarForm.changeButtonText('Сохранение...')
     api.changeAvatar(formData.avatarLink)
       .then((res) => {
         profileAvatar.src = res.avatar
