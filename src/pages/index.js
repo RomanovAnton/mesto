@@ -1,18 +1,21 @@
 import {
-  initialCards,
   cardsList,
   editPopup,
   addPopup,
   imagePopup,
+  popupDeleteConfirm,
+  popupChangeAvatar,
   editButton,
   addButton,
+  changeAvatarButton,
   profileName,
   profileJob,
+  profileAvatar,
   popupEditNameInput,
   popupEditJobInput,
-  popupDeleteConfirm,
   editform,
-  addform
+  addform,
+  avatarForm,
 } from '../utils/constants.js'
 
 import { Card } from '../components/Card.js'
@@ -33,6 +36,9 @@ api.getProfile()
       profileName: res.name,
       profileJob: res.about,
     })
+    userInfo.setUserAvatar({
+      profileAvatar: res.avatar
+    })
     userId = res._id
   })
 
@@ -49,30 +55,35 @@ api.getCards()
     })
   })
 
-
-
 const popopImageData = new PopupWithImage(imagePopup)
 
 const popupEditForm = new PopupWithForm({
   popup: editPopup,
   handleSubmitForm: (formData) => {
     userInfo.setUserInfo(formData)
+    popupEditForm.changeButtonText('Сохранение...')
     api.editProfile({
       name: formData.profileName,
-      job: formData.profileJob
+      job: formData.profileJob,
+    }).then((res) => {
+      profileAvatar.src = res.avatar
+      popupEditForm.close()
+      popupEditForm.changeButtonText('Сохранить')
     })
+
   }
 })
 
 const popupAddForm = new PopupWithForm({
   popup: addPopup,
   handleSubmitForm: (formData) => {
+    popupAddForm.changeButtonText('Сохранение...')
     api.addCard({
       name: formData.name,
       link: formData.link,
     })
       .then((res) => {
-        cards.addItem(createCard({
+        cards.addNewItem(createCard({
           name: res.name,
           link: res.link,
           likes: res.likes,
@@ -80,8 +91,22 @@ const popupAddForm = new PopupWithForm({
           cardId: res._id
         }
         ));
+        popupAddForm.close()
+        popupAddForm.changeButtonText('Создать')
       })
+  }
+})
 
+const popupChangeAvatarForm = new PopupWithForm({
+  popup: popupChangeAvatar,
+  handleSubmitForm: (formData) => {
+    popupChangeAvatarForm.changeButtonText('Сохранение')
+    api.changeAvatar(formData.avatarLink)
+      .then((res) => {
+        profileAvatar.src = res.avatar
+        popupChangeAvatarForm.close()
+        popupChangeAvatarForm.changeButtonText('Сохранить')
+      })
   }
 })
 
@@ -89,14 +114,13 @@ const popupDelConfirm = new PopupWithForm({
   popup: popupDeleteConfirm
 })
 
-
-const userInfo = new UserInfo(profileName, profileJob)
+const userInfo = new UserInfo(profileName, profileJob, profileAvatar)
 
 popopImageData.setEventListeners()
 popupEditForm.setEventListeners()
 popupAddForm.setEventListeners()
 popupDelConfirm.setEventListeners()
-
+popupChangeAvatarForm.setEventListeners()
 
 function createCard(item) {
   const card = new Card({
@@ -105,17 +129,18 @@ function createCard(item) {
     userId,
     handleCardClick: () => {
       popopImageData.open(item)
-      console.log(item)
     },
     handleDeleteCard: (cardId) => {
       popupDelConfirm.open()
       popupDelConfirm.changeHandleSubmitForm(() => {
+        popupDelConfirm.changeButtonText('Удаление...')
         api.deleteCard(cardId)
-          .then((res) => {
+          .then(() => {
             card.deleteCard()
+            popupDelConfirm.close()
+            popupDelConfirm.changeButtonText('Да')
           })
       })
-
     },
     hundleLikeClick: (cardId) => {
       if (card.isLiked()) {
@@ -134,8 +159,6 @@ function createCard(item) {
 const cards = new Section({ items: [] }, cardsList)
 
 
-
-
 editButton.addEventListener('click', () => {
   const { name, job } = userInfo.getUserInfo()
   popupEditForm.open()
@@ -147,27 +170,17 @@ addButton.addEventListener('click', () => {
   popupAddForm.open()
 });
 
-
-// const formValidators = {}
-// const enableValidation = (config) => {
-//   const formList = Array.from(document.querySelectorAll(config.formSelector))
-//   formList.forEach((formElement) => {
-//     const validator = new FormValidator(config, formElement)
-//     const formName = formElement.getAttribute('name')
-//     formValidators[formName] = validator;
-//     validator.enableValidation();
-//   });
-// };
-
-// enableValidation(config);
-// formValidators['deleteConfirmForm'].resetValidation();
+changeAvatarButton.addEventListener('click', () => {
+  popupChangeAvatarForm.open()
+});
 
 const editProfileValidator = new FormValidator(config, editform)
 const addCardValidator = new FormValidator(config, addform)
+const changeAvatarValidator = new FormValidator(config, avatarForm)
 
 editProfileValidator.enableValidation()
 addCardValidator.enableValidation()
-
+changeAvatarValidator.enableValidation()
 
 
 

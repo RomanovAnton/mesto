@@ -18,8 +18,12 @@
 
       <section class="profile">
         <div class="profile__avatar">
-          <img class="profile__avatar-photo" src="<%=require('./images/Avatar.jpg')%>" alt="аватар">
-          <img class="profile__icon profile__icon_size_big" src="<%=require('./images/avatar_edit.png')%>" alt="аватар">
+
+          <img class="profile__avatar-photo" src="" alt="аватар">
+          <div class="profile__overlay">
+            <img class="profile__avatar-icon" src="<%=require('./images/avatar_edit.png')%>" alt="иконка">
+          </div>
+
         </div>
 
 
@@ -76,9 +80,25 @@
 
     <div class="popup popup_delete-confirm">
       <div class="popup__container">
-        <h2 class="popup__title">Вы уверены?</h2>
+        <h2 class="popup__title popup__title_size_s">Вы уверены?</h2>
         <form class="popup__form" name="deleteConfirmForm">
           <button type="submit" class="popup__button-save">Да</button>
+        </form>
+        <button class="popup__button-close" type="button"><img class="popup__icon"
+            src="<%=require('./images/Close_Icon.svg')%>" alt="кнопка закрыть"></button>
+      </div>
+    </div>
+
+
+
+    <div class="popup popup_change-avatar">
+      <div class="popup__container">
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form class="popup__form popup__avatar-form" name="changeAvatarForm" novalidate>
+          <input type="url" class="popup__input popup__avatar-link" name="avatarLink" placeholder="Ссылка на аватар"
+            required id="popup__avatar-link">
+          <span class="popup__input-error popup__avatar-link-error"></span>
+          <button type="submit" class="popup__button-save">Сохранить</button>
         </form>
         <button class="popup__button-close" type="button"><img class="popup__icon"
             src="<%=require('./images/Close_Icon.svg')%>" alt="кнопка закрыть"></button>

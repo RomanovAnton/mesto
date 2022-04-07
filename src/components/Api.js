@@ -100,10 +100,21 @@ class Api {
       .catch(console.log())
   }
 
-
-
-
-
+  changeAvatar(avatarLink) {
+    return fetch(
+      `${this._options.baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: {
+        authorization: '5ad22543-5373-4be4-b3dc-87da6979f027',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        avatar: avatarLink,   
+      })
+    })
+      .then((res) => res.ok ? res.json() : Promise.reject(res.status))
+      .catch(console.log())
+  }
 }
 
 export const api = new Api({
