@@ -4,6 +4,7 @@ export class Card {
     this._title = data.name;
     this._image = data.link;
     this._likes = data.likes;
+    this._ownerId = data.owner;
     this._ownerId = data.owner._id;
     this._cardId = data.cardId;
     this._userId = userId;

@@ -30,27 +30,27 @@ import './index.css'
 let userId
 
 Promise.all([api.getProfile(), api.getCards()])
-.then(([userData, cardsData]) => {
+  .then(([userData, cardsData]) => {
 
-  userInfo.setUserInfo({
-    profileName: userData.name,
-    profileJob: userData.about,
-  })
-  userInfo.setUserAvatar({
-    profileAvatar: userData.avatar
-  })
-  userId = userData._id
+    userInfo.setUserInfo({
+      profileName: userData.name,
+      profileJob: userData.about,
+    })
+    userInfo.setUserAvatar({
+      profileAvatar: userData.avatar
+    })
+    userId = userData._id
 
-  cardsData.forEach((item) => {
-    cards.addItem(createCard({
-      name: item.name,
-      link: item.link,
-      likes: item.likes,
-      owner: item.owner,
-      cardId: item._id
-    }))
+    cardsData.forEach((item) => {
+      cards.addItem(createCard({
+        name: item.name,
+        link: item.link,
+        likes: item.likes,
+        owner: item.owner,
+        cardId: item._id
+      }))
+    })
   })
-})
 
 
 const popopImageData = new PopupWithImage(imagePopup)
