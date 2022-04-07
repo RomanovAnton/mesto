@@ -27,36 +27,33 @@ import { FormValidator, config } from '../components/FormValidator.js'
 import { api } from '../components/Api.js'
 import './index.css'
 
-
 let userId
 
-api.getProfile()
-  .then((res) => {
-    userInfo.setUserInfo({
-      profileName: res.name,
-      profileJob: res.about,
-    })
-    userInfo.setUserAvatar({
-      profileAvatar: res.avatar
-    })
-    userId = res._id
-  })
+Promise.all([api.getProfile(), api.getCards()])
+.then(([userData, cardsData]) => {
 
-api.getCards()
-  .then((data) => {
-    data.forEach((item) => {
-      cards.addItem(createCard({
-        name: item.name,
-        link: item.link,
-        likes: item.likes,
-        owner: item.owner,
-        cardId: item._id
-      }))
-    })
+  userInfo.setUserInfo({
+    profileName: userData.name,
+    profileJob: userData.about,
   })
+  userInfo.setUserAvatar({
+    profileAvatar: userData.avatar
+  })
+  userId = userData._id
+
+  cardsData.forEach((item) => {
+    cards.addItem(createCard({
+      name: item.name,
+      link: item.link,
+      likes: item.likes,
+      owner: item.owner,
+      cardId: item._id
+    }))
+  })
+})
+
 
 const popopImageData = new PopupWithImage(imagePopup)
-
 const popupEditForm = new PopupWithForm({
   popup: editPopup,
   handleSubmitForm: (formData) => {
@@ -70,7 +67,6 @@ const popupEditForm = new PopupWithForm({
       popupEditForm.close()
       popupEditForm.changeButtonText('Сохранить')
     })
-
   }
 })
 
@@ -115,6 +111,7 @@ const popupDelConfirm = new PopupWithForm({
 })
 
 const userInfo = new UserInfo(profileName, profileJob, profileAvatar)
+const cards = new Section({ items: [] }, cardsList)
 
 popopImageData.setEventListeners()
 popupEditForm.setEventListeners()
@@ -155,8 +152,6 @@ function createCard(item) {
   const cardElement = card.generateCard()
   return cardElement
 }
-
-const cards = new Section({ items: [] }, cardsList)
 
 
 editButton.addEventListener('click', () => {
