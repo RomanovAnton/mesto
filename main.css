@@ -504,14 +504,13 @@ template {
 
 
 
-.profile__icon_size_big {
+.profile__avatar-icon {
   width: 26px;
   height: 26px;
   position: absolute;
   top: 49px;
   left: 47px;
 }
-
 .profile__overlay {
   top: 0;
   left: 0;
@@ -925,6 +924,9 @@ template {
   color: #000000;
   background-color: white;
   pointer-events: none;
+}
+.popup__title_size_s {
+  margin: 34px 0 22px;
 }
 .popup__input_type_error {
   border-bottom: 1px solid #FF0000;
