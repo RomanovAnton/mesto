@@ -24,8 +24,16 @@ import { PopupWithImage } from '../components/PopupWithImage.js'
 import { PopupWithForm } from '../components/PopupWithForm.js'
 import { UserInfo } from '../components/UserInfo.js'
 import { FormValidator, config } from '../components/FormValidator.js'
-import { api } from '../components/Api.js'
+import { Api } from '../components/Api.js'
 import './index.css'
+
+const api = new Api({
+  baseUrl: 'https://nomoreparties.co/v1/cohort-39',
+  headers: {
+    authorization: '5ad22543-5373-4be4-b3dc-87da6979f027',
+    'Content-Type': 'application/json'
+  }
+});
 
 let userId
 
@@ -51,6 +59,7 @@ Promise.all([api.getProfile(), api.getCards()])
       }))
     })
   })
+  .catch(err => console.log(`Ошибка.....: ${err}`))
 
 
 const popopImageData = new PopupWithImage(imagePopup)
@@ -59,15 +68,17 @@ const popupEditForm = new PopupWithForm({
   handleSubmitForm: (formData) => {
     userInfo.setUserInfo(formData)
     popupEditForm.changeButtonText('Сохранение...')
-    
+
     api.editProfile({
       name: formData.profileName,
       job: formData.profileJob,
-    }).then((res) => {
-      profileAvatar.src = res.avatar
-      popupEditForm.close()
-      popupEditForm.changeButtonText('Сохранить')
     })
+      .then((res) => {
+        profileAvatar.src = res.avatar
+        popupEditForm.close()
+        popupEditForm.changeButtonText('Сохранить')
+      })
+      .catch(err => console.log(`Ошибка.....: ${err}`))
   }
 })
 
@@ -91,6 +102,7 @@ const popupAddForm = new PopupWithForm({
         popupAddForm.close()
         popupAddForm.changeButtonText('Создать')
       })
+      .catch(err => console.log(`Ошибка.....: ${err}`))
   }
 })
 
@@ -104,6 +116,7 @@ const popupChangeAvatarForm = new PopupWithForm({
         popupChangeAvatarForm.close()
         popupChangeAvatarForm.changeButtonText('Сохранить')
       })
+      .catch(err => console.log(`Ошибка.....: ${err}`))
   }
 })
 
@@ -138,15 +151,18 @@ function createCard(item) {
             popupDelConfirm.close()
             popupDelConfirm.changeButtonText('Да')
           })
+          .catch(err => console.log(`Ошибка.....: ${err}`))
       })
     },
     hundleLikeClick: (cardId) => {
       if (card.isLiked()) {
         api.deleteLike(cardId)
           .then((res) => card.setLikes(res.likes))
+          .catch(err => console.log(`Ошибка.....: ${err}`))
       } else {
         api.addLike(cardId)
           .then((res) => card.setLikes(res.likes))
+          .catch(err => console.log(`Ошибка.....: ${err}`))
       }
     },
   });
