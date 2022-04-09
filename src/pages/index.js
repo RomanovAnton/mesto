@@ -49,15 +49,20 @@ Promise.all([api.getProfile(), api.getCards()])
     })
     userId = userData._id
 
-    cardsData.forEach((item) => {
-      cards.addItem(createCard({
-        name: item.name,
-        link: item.link,
-        likes: item.likes,
-        owner: item.owner,
-        cardId: item._id
-      }))
-    })
+
+    const cards = new Section({
+      items: cardsData,
+      renderer: (item) => {
+        cards.addItem(createCard({
+          name: item.name,
+          link: item.link,
+          likes: item.likes,
+          owner: item.owner,
+          cardId: item._id
+        }))
+      }
+    }, cardsList)
+    cards.renderer()
   })
   .catch(err => console.log(`Ошибка.....: ${err}`))
 
@@ -76,15 +81,16 @@ const popupEditForm = new PopupWithForm({
       .then((res) => {
         profileAvatar.src = res.avatar
         popupEditForm.close()
-        popupEditForm.changeButtonText('Сохранить')
       })
       .catch(err => console.log(`Ошибка.....: ${err}`))
+      .finally(() => { popupEditForm.changeButtonText('Сохранить') })
   }
 })
 
 const popupAddForm = new PopupWithForm({
   popup: addPopup,
   handleSubmitForm: (formData) => {
+    const cards = new Section({ items: [] }, cardsList)
     popupAddForm.changeButtonText('Сохранение...')
     api.addCard({
       name: formData.name,
@@ -100,9 +106,9 @@ const popupAddForm = new PopupWithForm({
         }
         ));
         popupAddForm.close()
-        popupAddForm.changeButtonText('Создать')
       })
       .catch(err => console.log(`Ошибка.....: ${err}`))
+      .finally(() => { popupAddForm.changeButtonText('Создать') })
   }
 })
 
@@ -114,9 +120,9 @@ const popupChangeAvatarForm = new PopupWithForm({
       .then((res) => {
         profileAvatar.src = res.avatar
         popupChangeAvatarForm.close()
-        popupChangeAvatarForm.changeButtonText('Сохранить')
       })
       .catch(err => console.log(`Ошибка.....: ${err}`))
+      .finally(() => { popupChangeAvatarForm.changeButtonText('Сохранить') })
   }
 })
 
@@ -125,7 +131,7 @@ const popupDelConfirm = new PopupWithForm({
 })
 
 const userInfo = new UserInfo(profileName, profileJob, profileAvatar)
-const cards = new Section({ items: [] }, cardsList)
+
 
 popopImageData.setEventListeners()
 popupEditForm.setEventListeners()
@@ -149,9 +155,9 @@ function createCard(item) {
           .then(() => {
             card.deleteCard()
             popupDelConfirm.close()
-            popupDelConfirm.changeButtonText('Да')
           })
           .catch(err => console.log(`Ошибка.....: ${err}`))
+          .finally(() => { popupDelConfirm.changeButtonText('Да') })
       })
     },
     hundleLikeClick: (cardId) => {
@@ -179,6 +185,7 @@ editButton.addEventListener('click', () => {
 });
 
 addButton.addEventListener('click', () => {
+  addCardValidator.resetErrors()
   popupAddForm.open()
 });
 

@@ -65,12 +65,10 @@ class FormValidator {
     this._button.classList.add(this._inactiveButtonClass)
   }
 
-
-  
-  resetValidation() {
+  resetErrors() {
     this._inputList.forEach((input) => {
-        this._checkImputValidity(input)
-        this._checkButtonValidity()
+      this._errorElement = this._form.querySelector(`.${input.id}-error`)
+      this._setInputValid(input)
     })
   }
 }
