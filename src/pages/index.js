@@ -36,10 +36,22 @@ const api = new Api({
 });
 
 let userId
+const cards = new Section({
+  items: [],
+  renderer: (card) => {
+    cards.addItem(createCard({
+      name: card.name,
+      link: card.link,
+      likes: card.likes,
+      owner: card.owner,
+      cardId: card._id
+    }))
+  }
+}, cardsList)
+
 
 Promise.all([api.getProfile(), api.getCards()])
   .then(([userData, cardsData]) => {
-
     userInfo.setUserInfo({
       profileName: userData.name,
       profileJob: userData.about,
@@ -48,21 +60,7 @@ Promise.all([api.getProfile(), api.getCards()])
       profileAvatar: userData.avatar
     })
     userId = userData._id
-
-
-    const cards = new Section({
-      items: cardsData,
-      renderer: (item) => {
-        cards.addItem(createCard({
-          name: item.name,
-          link: item.link,
-          likes: item.likes,
-          owner: item.owner,
-          cardId: item._id
-        }))
-      }
-    }, cardsList)
-    cards.renderer()
+    cards.renderer(cardsData)
   })
   .catch(err => console.log(`Ошибка.....: ${err}`))
 
@@ -90,7 +88,6 @@ const popupEditForm = new PopupWithForm({
 const popupAddForm = new PopupWithForm({
   popup: addPopup,
   handleSubmitForm: (formData) => {
-    const cards = new Section({ items: [] }, cardsList)
     popupAddForm.changeButtonText('Сохранение...')
     api.addCard({
       name: formData.name,

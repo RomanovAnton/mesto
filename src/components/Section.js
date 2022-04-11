@@ -5,9 +5,9 @@ export class Section {
     this._container = container;
   }
 
-  renderer() {
-    this._renderedItems.forEach(item => {
-      this._renderer(item)
+  renderer(cards) {
+    cards.forEach(card => {
+      this._renderer(card)
     });
   }
 

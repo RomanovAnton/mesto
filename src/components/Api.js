@@ -6,10 +6,7 @@ export class Api {
   getProfile() {
     return fetch(
       `${this._options.baseUrl}/users/me`, {
-      headers: {
-        authorization: this._options.headers.authorization,
-        'Content-Type': 'application/json'
-      }
+      headers: this._options.headers
     })
       .then((res) => res.ok ? res.json() : Promise.reject(res.status))
   }
@@ -17,10 +14,7 @@ export class Api {
   getCards() {
     return fetch(
       `${this._options.baseUrl}/cards`, {
-      headers: {
-        authorization: this._options.headers.authorization,
-        'Content-Type': 'application/json'
-      }
+      headers: this._options.headers
     })
       .then((res) => res.ok ? res.json() : Promise.reject(res.status))
   }
@@ -29,10 +23,7 @@ export class Api {
     return fetch(
       `${this._options.baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: {
-        authorization: this._options.headers.authorization,
-        'Content-Type': 'application/json'
-      },
+      headers: this._options.headers,
       body: JSON.stringify({
         name: data.name,
         about: data.job
@@ -45,10 +36,7 @@ export class Api {
     return fetch(
       `${this._options.baseUrl}/cards `, {
       method: 'POST',
-      headers: {
-        authorization: this._options.headers.authorization,
-        'Content-Type': 'application/json'
-      },
+      headers: this._options.headers,
       body: JSON.stringify({
         name: data.name,
         link: data.link
@@ -61,10 +49,7 @@ export class Api {
     return fetch(
       `${this._options.baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: {
-        authorization: this._options.headers.authorization,
-        'Content-Type': 'application/json'
-      },
+      headers: this._options.headers,
     })
       .then((res) => res.ok ? res.json() : Promise.reject(res.status))
   }
@@ -73,10 +58,7 @@ export class Api {
     return fetch(
       `${this._options.baseUrl}/cards/${cardId}/likes `, {
       method: 'PUT',
-      headers: {
-        authorization: this._options.headers.authorization,
-        'Content-Type': 'application/json'
-      },
+      headers: this._options.headers,
     })
       .then((res) => res.ok ? res.json() : Promise.reject(res.status))
   }
@@ -85,10 +67,7 @@ export class Api {
     return fetch(
       `${this._options.baseUrl}/cards/${cardId}/likes `, {
       method: 'DELETE',
-      headers: {
-        authorization: this._options.headers.authorization,
-        'Content-Type': 'application/json'
-      },
+      headers: this._options.headers,
     })
       .then((res) => res.ok ? res.json() : Promise.reject(res.status))
   }
@@ -97,10 +76,7 @@ export class Api {
     return fetch(
       `${this._options.baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: {
-        authorization: this._options.headers.authorization,
-        'Content-Type': 'application/json'
-      },
+      headers: this._options.headers,
       body: JSON.stringify({
         avatar: avatarLink,
       })
